@@ -111,7 +111,7 @@ builder = (data) ->
           rhymeWord = prevLine[prevLine.length - 1]
           wordsToRhymeWith.push rhymeWord
 
-          word = green(pickRhymedFrom suitableWords, rhymeWord, 2) \
+          word = green(pickRhymedFrom suitableWords, rhymeWord, 3) \
               || yellow(pickRhymedFrom allWords, rhymeWord) \
               || red(pickFirstFrom suitableWords) \
               || red(pickRandomFrom allWords)
@@ -120,6 +120,7 @@ builder = (data) ->
 
         else
 
+            # todo take longest words for the ends of the lines
             word = (pickRandomFrom suitableWords) \
             || blue(pickRandomFrom allWords)
 
