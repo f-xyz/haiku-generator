@@ -144,7 +144,7 @@ builder = (data) ->
 
     lines
     lines = lines.map (x) -> x.join ' '
-    postProcess lines.join('#\n') + '.'
+    postProcess lines.join('\n') + '.'
 
   return { build, wordsToRhymeWith, rhymesFound }
 

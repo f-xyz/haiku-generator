@@ -1,26 +1,25 @@
 {
-  "name": "misc",
-  "version": "0.0.0",
+  "name": "Haiku generator.",
+  "version": "1.1.0",
   "description": "misc. stuff ;)",
-  "main": "m.coffee",
+  "main": "",
   "directories": {
     "test": "test"
   },
   "dependencies": {
+    "mocha": "~2.1.0",
     "chai": "^1.10.0",
+    "istanbul": "~0.3.5",
+    "chalk": "^1.0.0",
     "cli-table": "^0.3.1",
+    "coffee-script": "^1.9.3",
     "colors": "^1.0.3",
-    "f_context": "~0.3.0",
     "gulp": "~3.8.10",
     "gulp-spawn-mocha": "~0.5.2",
-    "istanbul": "~0.3.5",
     "lazy": "^1.0.11",
     "lodash": "^2.4.1",
     "optimist": "^0.6.1",
     "request": "^2.53.0"
-  },
-  "devDependencies": {
-    "mocha": "~2.1.0"
   },
   "scripts": {
     "test": "test.com",

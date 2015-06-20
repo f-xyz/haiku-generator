@@ -4,7 +4,7 @@ colors = require('colors')
 
 storage = (db) ->
   items: []
-  load: (db, nextFn) ->
+  load: (db, next) ->
     fs.readFile db, (e, file) ->
       if e then throw new Error e
       next JSON.parse file
