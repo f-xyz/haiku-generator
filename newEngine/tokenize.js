@@ -2,17 +2,8 @@
  *
  */
 
-const signs = /[,.-]/;
+const signs = /[,\n-]/;
 const chars = /[\wа-яёъєїі’]/i;
-
-const rx = /[^\wа-яёъєїі\n']/i;
-
-const wordsRegExp = (input) => input
-    .split(rx)
-    .filter(x => !! x.trim())
-    .map(x => x.toLowerCase().replace(/\n+/g, '\n'));
-
-////////////
 
 const isWord = (char) => chars.test(char);
 const isSign = (char) => signs.test(char);
@@ -30,19 +21,17 @@ const wordsFSM = (input) => {
 
     const wordAddChar = (char) => word += char;
     const wordClear = () => word = '';
-    const resultAdd = (word) => result.push(word);
+    const resultAdd = (word) => result.push(word.toLocaleLowerCase());
     const stateSet = (newState) => state = newState;
 
     for (let i = 0; i < input.length; ++i) {
         let char = input[i];
 
         switch (true) {
-            case isWhitespace(char):
-                if (state == STATES.wordCharacter) {
-                    resultAdd(word);
-                    wordClear();
-                    stateSet(STATES.whitespaceOrSign);
-                }
+
+            case isWord(char):
+                wordAddChar(char);
+                stateSet(STATES.wordCharacter);
                 break;
 
             case isSign(char):
@@ -54,9 +43,12 @@ const wordsFSM = (input) => {
                 }
                 break;
 
-            case isWord(char):
-                wordAddChar(char);
-                stateSet(STATES.wordCharacter);
+            case isWhitespace(char):
+                if (state == STATES.wordCharacter) {
+                    resultAdd(word);
+                    wordClear();
+                    stateSet(STATES.whitespaceOrSign);
+                }
                 break;
         }
     }
@@ -71,6 +63,5 @@ const wordsFSM = (input) => {
 module.exports = {
     chars,
     signs,
-    wordsRegExp: wordsRegExp,
     words: wordsFSM
 };

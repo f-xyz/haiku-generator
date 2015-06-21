@@ -1,36 +1,6 @@
 require('chai').should();
+const benchmark = require('micro-benchmark');
 const analyze = require('../analyze');
-
-//const lol = require('lol');
-//const q = new Array(10).join('q').split('').map(lol).join(' ');
-//console.log(q);
-
-const profile = (fn, duration = 100) => {
-
-    const maxOperations = 1e3;
-    let started = Date.now();
-    let operations = 0, elapsed;
-
-    while (true) {
-
-        fn();
-        operations++;
-        elapsed = Date.now() - started;
-
-        if (elapsed > duration || operations > maxOperations) {
-            break;
-        }
-    }
-    return {
-        fps: operations / elapsed * 1000,
-        time: elapsed / operations
-    };
-};
-
-const report = (name, p) =>
-    `${name} -> ` +
-    `${p.time.toFixed(2)} ms, ` +
-    `${p.fps.toFixed(2)} ops`;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -81,7 +51,7 @@ describe('analyzer tests', () => {
 
 });
 
-describe('benchmarks', () => {
+xdescribe('benchmarks', () => {
     const N = 1e4;
     let p, bigSequence = [];
 
@@ -89,69 +59,84 @@ describe('benchmarks', () => {
         bigSequence.push(`word${i}`);
     }
 
-    p = profile(() => analyze.markov2ndOrder(bigSequence));
-    it(report('markov2ndOrder', p), () => null);
+    //p = profile(() => analyze.markov2ndOrder(bigSequence));
+    //it(report('markov2ndOrder', p), () => null);
 
-    p = profile(() => analyze.markov2ndOrderObj(bigSequence));
-    it(report('markov2ndOrderObj', p), () => null);
+    //p = profile(() => analyze.markov2ndOrderObj(bigSequence));
+    //it(report('markov2ndOrderObj', p), () => null);
 });
 
-xdescribe('builder tests', () => {
+describe('builder tests', () => {
 
     const randomInt = (max) => Math.floor(Math.random() * max);
-    const pickRandom = (list) => list[randomInt(list.length)];
+    const randomItem = (list) => list[randomInt(list.length)];
 
     it('experimental stuff', () => {
         const tokenize = require('../tokenize');
         const fs = require('fs');
         const text = fs.readFileSync('../data/haiku.txt').toString();
+        //const text = 'Купатися чи не купатися.';
         const words = tokenize.words(text);
 
-        const chain = analyze.markov2ndOrder(words);
+        console.log(benchmark.report(benchmark.suite({
+            specs: [{
+                name: 'asd',
+                maxOperations: 1,
+                fn: () => {
+                    const chain = analyze.markov2ndOrder(words);
 
-        let result = [];
+                    console.log(words);
+                    console.log(chain);
+                    console.log(new Array(65).join('-'));
 
-        // pick random word
-        let word, prev2Word, prev1Word;
-        for (let i = 0; i < 30; ++i) {
+                    // pick random word
+                    let result = [];
+                    // prev. of prev. word, prev. word and word
+                    let ppw, pw, w;
+                    for (let i = 0; i < 12; ++i) {
 
-            //console.log('#', result.join(' '));
-            //console.log('  @', i, prev2Word, prev1Word);
+                        if (!ppw) {
+                            ppw = randomItem(words);
+                        }
 
-            if (!prev2Word) {
-                prev2Word = pickRandom(words);
-                //console.log('  - prev2 -> ', prev2Word);
-            }
+                        if (!pw) {
+                            let matchByPPW = chain.filter(x => x[0] === ppw);
+                            let randomWords = randomItem(matchByPPW);
+                            pw = randomWords[1];
+                        }
 
-            if (!prev1Word) {
-                let matchByPrev2Word = chain.filter(x => x[0] === prev2Word);
-                //let matchByPrev1Word = chain.filter(x => x[1] === prev2Word);
+                        let nextWordsAvailable = analyze.nextWords(
+                            chain,
+                            ppw, pw);
 
-                let rndList = pickRandom(matchByPrev2Word);
-                //console.log('  - prev1 -> 1 ', rndList);
-                prev1Word = rndList[1];
-                //console.log('  - prev1 -> ', prev1Word);
-            }
+                        w = nextWordsAvailable[0];
+                        if (!w) {
+                            ppw = null;
+                            pw = null;
+                            break;
+                        }
 
-            let nextWordsAvailable = analyze.nextWords(chain,
-                prev2Word, prev1Word);
-            //console.log(' :', nextWordsAvailable);
-            word = nextWordsAvailable[0];
-            if (!word) {
-                prev2Word = null;
-                prev1Word = null;
-                break;
-            }
+                        //console.log('  --> ', word, '\n');
+                        result.push(w);
 
-            //console.log('  --> ', word, '\n');
-            result.push(word);
+                        ppw = pw;
+                        pw = w;
+                    }
 
-            prev2Word = prev1Word;
-            prev1Word = word;
+                    // post-processing
+                    result = result.join(' ') + '.';
+                    result = result.replace(/\s{2,}/g, ' ');
+                    result = result.replace(/\s([,.!])/g, '$1\n');
+                    result = result.replace(/^\s+/g, '');
+                    result = result.replace(/\n\s+/g, '\n');
 
-        }
 
-        console.log('\n# ' + result.join(' ') + '.');
+                    console.log('\n' + result + '\n');
+                    console.log(new Array(65).join('-'));
+                }
+            }]
+        }), { chartWidth: 20 }));
+        console.log(new Array(65).join('-'));
     });
 
 });

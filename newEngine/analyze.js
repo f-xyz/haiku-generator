@@ -7,11 +7,10 @@
  *
  */
 
-const markov2ndOrderSlow = (input) => [].reduce.call (
+const markov2ndOrderSlow = (input) => [].reduce.call(
     input,
     (res, ch, i) => [...res, [input[i-2], input[i-1], ch]],
-    []
-);
+    []);
 
 const markov2ndOrder = (input) => {
     const result = new Array(input.length);
@@ -48,17 +47,16 @@ const markov2ndOrderObj = (input) => {
 };
 
 const nextWords = (chain, prev2, prev1) => chain
-    .filter (x => equalOrNull(x[0], prev2)
-               && equalOrNull(x[1], prev1))
-    .map    (x => x[2]);
+    .filter (x => x[0] == prev2 // prev. prev. words matched
+               && x[1] == prev1) // prev. words matched
+    .map    (x => x[2]); // take word
 
-const equalOrNull = (x, y) => x === y;
+const equal = (x, y) => x === y;
 
 const nextWords2 = (chain, prev2, prev1) => {
     for (let i = 0; i < chain.length; ++i) {
         const item = chain[i];
-        if (equalOrNull(item[0], prev2)
-        &&  equalOrNull(item[1], prev1)) {
+        if (item[0] == prev2 && item[1] == prev1) {
             return [item[2]];
         }
     }

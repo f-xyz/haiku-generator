@@ -28,12 +28,10 @@ describe('tokenizer tests', () => {
         const tokens = tokenize.words(data);
         tokens.should.eql(['зх’їєфійъхфьёыъ', 'зх’їєфійъхфьёыъ']);
     });
-});
 
-describe('tokenizer benchmark', function () {
-
-    it('!', function () {
-
+    it('everything is lower cased', function () {
+        const data = 'A  Bc зх’їєфійъхфьёыъ зх’їєфійъхфьёыъ';
+        const tokens = tokenize.words(data);
+        tokens.should.eql(['a', 'bc', 'зх’їєфійъхфьёыъ', 'зх’їєфійъхфьёыъ']);
     });
-
 });
