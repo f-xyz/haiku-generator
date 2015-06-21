@@ -2,19 +2,17 @@
  *
  */
 
-require('colors');
+const signs = /[,.-]/;
+const chars = /[\wа-яёъєїі’]/i;
 
 const rx = /[^\wа-яёъєїі\n']/i;
 
-const words = (input) => input
+const wordsRegExp = (input) => input
     .split(rx)
     .filter(x => !! x.trim())
     .map(x => x.toLowerCase().replace(/\n+/g, '\n'));
 
 ////////////
-
-const chars = /[\wа-яёъєїі’]/i;
-const signs = /[,.-]/;
 
 const isWord = (char) => chars.test(char);
 const isSign = (char) => signs.test(char);
@@ -25,18 +23,7 @@ const STATES = {
     whitespaceOrSign: 'whitespaceOrSign'
 };
 
-const fsm = () => {
-
-
-
-    return {};
-};
-
-
-const words2 = (input) => {
-
-    //console.log('\n  ' + String(Date.now()).yellow + '\n  ### INPUT'.green, input);
-
+const wordsFSM = (input) => {
     let word = '';
     let result = [];
     let state = STATES.whitespaceOrSign;
@@ -49,28 +36,25 @@ const words2 = (input) => {
     for (let i = 0; i < input.length; ++i) {
         let char = input[i];
 
-        //console.log('    ', result, word, char, '->', state);
-
         switch (true) {
             case isWhitespace(char):
-                //console.log('\t\tisWhitespace(char)');
                 if (state == STATES.wordCharacter) {
                     resultAdd(word);
                     wordClear();
                     stateSet(STATES.whitespaceOrSign);
                 }
                 break;
+
             case isSign(char):
-                //console.log('\t\tisSign(char)');
                 if (state == STATES.wordCharacter) {
+                    resultAdd(char);
                     resultAdd(word);
                     wordClear();
-                    resultAdd(char);
                     stateSet(STATES.whitespaceOrSign);
                 }
                 break;
+
             case isWord(char):
-                //console.log('\t\tisWord(char)');
                 wordAddChar(char);
                 stateSet(STATES.wordCharacter);
                 break;
@@ -81,12 +65,12 @@ const words2 = (input) => {
         resultAdd(word);
     }
 
-    //console.log(result);
     return result;
 };
 
 module.exports = {
     chars,
     signs,
-    words: words2
+    wordsRegExp: wordsRegExp,
+    words: wordsFSM
 };

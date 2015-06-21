@@ -1,7 +1,7 @@
 {
-  "name": "Haiku generator.",
+  "name": "haiku-generator.",
   "version": "1.1.0",
-  "description": "misc. stuff ;)",
+  "description": "misc. stuff :)",
   "main": "",
   "directories": {
     "test": "test"
