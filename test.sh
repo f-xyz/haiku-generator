@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-spec=$1
-: ${spec:='spec'}
+reporter=$1
+: ${reporter:='spec'}
 
-mocha --watch --compilers js:babel/register -R ${spec}
+testFile=$2
+: ${testFile:='./test'}
+
+mocha --watch -R ${reporter} ${testFile}

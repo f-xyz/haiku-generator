@@ -6,44 +6,18 @@
  *
  *
  */
-
-const markov2ndOrderSlow = (input) => [].reduce.call(
-    input,
-    (res, ch, i) => [...res, [input[i-2], input[i-1], ch]],
-    []);
+const utils = require('./utils');
 
 const markov2ndOrder = (input) => {
-    const result = new Array(input.length);
-    for (let i = 0; i < input.length; ++i) {
-        result[i] = [
-            input[i-2],
-            input[i-1],
+    const result = [];
+    for (let i = 2; i < input.length; ++i) {
+        result.push([
+            input[i - 2],
+            input[i - 1],
             input[i]
-        ];
+        ]);
     }
     return result;
-};
-
-const markov2ndOrderObj = (input) => {
-    let res = {};
-    input.forEach((ch, i) => {
-
-        const prev2 = input[i-2];
-        const prev1 = input[i-1];
-
-        if (!(prev2 in res)) {
-            res[prev2] = {};
-        }
-        if (!(prev1 in res[prev2])) {
-            res[prev2][prev1] = {};
-        }
-        if (!(ch in res[prev2][prev1])) {
-            res[prev2][prev1][ch] = 1;
-        } else {
-            res[prev2][prev1][ch]++;
-        }
-    });
-    return res;
 };
 
 const nextWords = (chain, prev2, prev1) => chain
@@ -63,15 +37,49 @@ const nextWords2 = (chain, prev2, prev1) => {
     return [];
 };
 
-const nextWordsObj = (chain, prev2, prev1) => {
-    return chain[prev2][prev1];
+const build = (chain, words) => {
+    let result = [];
+    // prev. of prev. word,
+    // prev. word
+    // and word
+    let firstWord, secondWord, nextWord;
+    for (let i = 0; i < 12; ++i) {
+
+        if (!firstWord) {
+            firstWord = utils.randomItem(words);
+        }
+
+        if (!secondWord) {
+            const matchesByFirstWord = chain.filter(x => x[0] === firstWord);
+            const randomWords = utils.randomItem(matchesByFirstWord);
+            secondWord = randomWords[1];
+        }
+
+        const nextWordsAvailable = nextWords(chain, firstWord, secondWord);
+
+        nextWord = nextWordsAvailable[0];
+
+        //console.log('  --> ', word, '\n');
+        result.push(nextWord);
+
+        firstWord = secondWord;
+        secondWord = nextWord;
+    }
+
+    // post-processing
+    result = result.join(' ') + '.';
+    result = result.replace(/\s{2,}/g, ' ');
+    result = result.replace(/\s([,.!])/g, '$1\n');
+    result = result.replace(/^\s+/g, '');
+    result = result.replace(/\n\s+/g, '\n');
+
+    console.log('\n' + result + '\n');
+    console.log(new Array(65).join('-'));
 };
 
 module.exports = {
-    markov2ndOrderSlow,
     markov2ndOrder,
-    markov2ndOrderObj,
     nextWords,
     nextWords2,
-    nextWordsObj
+    build
 };
