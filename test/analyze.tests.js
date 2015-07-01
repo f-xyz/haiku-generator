@@ -5,13 +5,13 @@ const analyze = require('../analyze');
 
 describe('analyzer tests', () => {
 
-    it('markov2ndOrder creates 2nd order Markov chain as list', () => {
-        const tokens = 'a b c'.split(' ');
-        const chain = analyze.markov2ndOrder(tokens);
-        chain.should.eql([
-            ['a', 'b', 'c']
-        ]);
-    });
+    //it('markov2ndOrder creates 2nd order Markov chain as list', () => {
+    //    const tokens = 'a b c'.split(' ');
+    //    const chain = analyze.markov2ndOrder(tokens);
+    //    chain.should.eql([
+    //        ['a', 'b', 'c']
+    //    ]);
+    //});
 
     it('markov2ndOrder creates 2nd order Markov chain as list', () => {
         const tokens = 'a b c a c'.split(' ');
@@ -38,7 +38,6 @@ describe('analyzer tests', () => {
 });
 
 describe('builder tests', () => {
-    const randomInt = (max) => Math.floor(Math.random() * max);
 
     it('should build a sentence', function () {
         const tokenize = require('../tokenize');
