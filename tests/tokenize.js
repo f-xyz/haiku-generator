@@ -1,5 +1,5 @@
 require('chai').should();
-const tokenize = require('../tokenize');
+const tokenize = require('../src/tokenize');
 
 describe('tokenizer tests', () => {
 
@@ -15,12 +15,10 @@ describe('tokenizer tests', () => {
         tokens.should.eql(['a', 'bc']);
     });
 
-    it('supports signs ' + tokenize.signs, () => {
-        it('makes word list from a string', () => {
-            const data = 'ab-.,:';
-            const tokens = tokenize.words(data);
-            tokens.should.eql(['ab', ',', '-', '.']);
-        });
+    it('supports signs', () => {
+        const data = 'ab-,.:\n';
+        const tokens = tokenize.words(data);
+        tokens.should.eql(['ab', ...'-,.:\n'.split('')]);
     });
 
     it('supports chars ' + tokenize.chars, () => {

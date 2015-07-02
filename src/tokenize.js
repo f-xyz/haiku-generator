@@ -2,7 +2,7 @@
  *
  */
 
-const signs = /[,\n-]/;
+const signs = /[\-,.:\n]/;
 const chars = /[\wа-яёъєїі’]/i;
 
 const isWord = (char) => chars.test(char);
@@ -15,6 +15,7 @@ const STATES = {
 };
 
 const wordsFSM = (input) => {
+
     let word = '';
     let result = [];
     let state = STATES.whitespaceOrSign;
@@ -25,7 +26,7 @@ const wordsFSM = (input) => {
     const stateSet = (newState) => state = newState;
 
     for (let i = 0; i < input.length; ++i) {
-        let char = input[i];
+        const char = input[i];
 
         switch (true) {
 
@@ -36,11 +37,11 @@ const wordsFSM = (input) => {
 
             case isSign(char):
                 if (state == STATES.wordCharacter) {
-                    resultAdd(char);
                     resultAdd(word);
                     wordClear();
                     stateSet(STATES.whitespaceOrSign);
                 }
+                resultAdd(char);
                 break;
 
             case isWhitespace(char):
@@ -60,7 +61,7 @@ const wordsFSM = (input) => {
     return result;
 };
 
-module.exports = {
+export default {
     chars,
     signs,
     words: wordsFSM
