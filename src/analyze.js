@@ -7,6 +7,7 @@
  *
  */
 const utils = require('./utils');
+const Chain = require('./chain');
 
 const compile = (input) => {
     const result = [];

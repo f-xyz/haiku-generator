@@ -1,4 +1,4 @@
-export class Chain {
+export default class Chain {
 
     constructor(word, prevWord, prevPrevWord) {
         this.word = word || '';
