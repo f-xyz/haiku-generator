@@ -1,7 +1,4 @@
-chai = require 'chai'
-utils = require '../src/utils'
-
-chai.should()
+utils = require('../src/utils')
 
 describe 'Utils', ->
 

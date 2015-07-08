@@ -1,0 +1,31 @@
+fs = require('fs')
+benchmark = require('micro-benchmark')
+tokenize = require('../src/tokenize')
+analyze = require('../src/analyze')
+
+describe 'analyzer', ->
+
+    it 'compile() creates chain from list of words', ->
+        tokens = 'a b c a c'.split ' '
+        chain = analyze.compile tokens
+        chain.should.eql [
+            ['a', 'b', 'c']
+            ['b', 'c', 'a']
+            ['c', 'a', 'c']
+        ]
+
+    it 'findNextWords() finds next words using 2 previous word', ->
+        chain = [
+            ['a', 'b', 'c']
+            ['a', 'b', 'd']
+        ]
+        nextWord = analyze.findPossibleNextWords chain, 'a', 'b'
+        nextWord.should.eql ['c', 'd']
+
+    it 'findSecondWords() finds next word using 1 previous word', ->
+        chain = [
+            ['a', 'b', 'c']
+            ['a', 'b', 'd']
+        ]
+        nextWord = analyze.findPossibleSecondWords chain, 'a'
+        nextWord.should.eql ['b']

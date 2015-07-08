@@ -1,7 +1,4 @@
-chai = require 'chai'
-tokenize = require '../src/tokenize'
-
-chai.should()
+tokenize = require('../src/tokenize')
 
 describe 'tokenizer tests', ->
 
