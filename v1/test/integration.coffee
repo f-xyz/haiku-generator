@@ -4,10 +4,7 @@ request = require('request')
 should = require('chai').should()
 colors = require('colors')
 tokenize = require('../tokenizer')
-storage = require('../storage')
-
 bose = require('../engine')
-draw = require('../draw')
 
 console.log '\u001B[2J\u001B[0;0f'
 console.log new Date()

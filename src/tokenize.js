@@ -2,7 +2,7 @@
  *
  */
 
-const signs = /[\-,.:\n]/;
+const signs = /[\-,.]/;
 const chars = /[\wа-яёъєїі’]/i;
 
 const isWord = (char) => chars.test(char);
@@ -14,7 +14,7 @@ const STATES = {
     whitespaceOrSign: 'whitespaceOrSign'
 };
 
-const wordsFSM = (input) => {
+const words = (input) => {
 
     let word = '';
     let result = [];
@@ -64,5 +64,5 @@ const wordsFSM = (input) => {
 export default {
     chars,
     signs,
-    words: wordsFSM
+    words
 };

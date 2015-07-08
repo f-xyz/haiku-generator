@@ -16,9 +16,9 @@ describe('tokenizer tests', () => {
     });
 
     it('supports signs', () => {
-        const data = 'ab-,.:\n';
+        const data = 'ab-,.';
         const tokens = tokenize.words(data);
-        tokens.should.eql(['ab', ...'-,.:\n'.split('')]);
+        tokens.should.eql(['ab', ...'-,.'.split('')]);
     });
 
     it('supports chars ' + tokenize.chars, () => {
