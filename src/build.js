@@ -8,9 +8,10 @@ import * as analyze from './analyze';
  */
 const build = (chain, words) => {
     let result = [];
-    let firstWord,
-        secondWord,
-        nextWord;
+    let firstWord = '';
+    let secondWord = '';
+    let nextWord = '';
+    let line = '';
 
     for (let i = 0; i < 20; ++i) {
 
@@ -32,18 +33,27 @@ const build = (chain, words) => {
         nextWord = utils.randomItem(nextWords);
         result.push(nextWord);
 
+        line += nextWord;
+
+        if (utils.syllablesCount(line) > 7) {
+            result.push('\n');
+            line = '';
+        }
+
         firstWord = secondWord;
         secondWord = nextWord;
     }
 
-    // post-processing
-    result = (result.join(' ') + '.')
-        .replace(/\s{2,}/g, ' ')
-        .replace(/\s([,.!])/g, '$1\n')
-        .replace(/^\s+/g, '')
-        .replace(/\n\s+/g, '\n');
-
-    return result;
+    return toString(result);
 };
+
+function toString(wordsList) {
+    return (wordsList.join(' ') + '.')
+        .replace(/^,\s/, '')
+        .replace(/\s(?=,)/g, '')
+        .replace(/\n\s+/g, '\n')
+        .replace(/\s?\n([,.])/g, '$1\n')
+    ;
+}
 
 module.exports = build;

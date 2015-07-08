@@ -2,7 +2,7 @@
  *
  */
 
-const signs = /[\-,.]/;
+const signs = /[\-,]/;
 const chars = /[\wа-яёъєїі’]/i;
 
 const isWord = (char) => chars.test(char);
