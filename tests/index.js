@@ -6,10 +6,10 @@ chai.should();
 require('coffee-script/register');
 require('babel/register');
 
-require('./tokenize');
+//require('./tokenize');
 require('./analyze');
-require('./builder');
-require('./utils');
+//require('./builder');
+//require('./utils');
 
 setTimeout(function () {
     console.log(colors.yellow(new Date().toLocaleString()));
