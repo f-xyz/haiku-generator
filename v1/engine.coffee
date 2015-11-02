@@ -9,11 +9,9 @@ log = Math.log
 abs = Math.abs
 
 config =
-  wordsTotal : 16
-#  wordsTotal : 10
-  lineTotal : 4
-  rhyme : [2, -1]
-#  rhyme : [0, 0]
+  wordsTotal : 20
+  lineTotal : 3
+  rhyme : [4, -1]
 
 reverse = (x) -> x.split('').reverse().join('')
 upperFirst = (s) -> s[0].toUpperCase() + s.slice(1)

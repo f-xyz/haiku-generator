@@ -21,13 +21,12 @@ describe 'haiku tests', ->
 
   it 'asd', ->
       content = ''
-      content += fs.readFileSync('data/fox.txt').toString()
+#      content += fs.readFileSync('data/fox.txt').toString()
       content += fs.readFileSync('data/haiku.txt').toString()
 #      content += fs.readFileSync(__dirname + '/../tokenizer.coffee').toString()
 #      content += fs.readFileSync('data/kobzar.txt').toString()
-      content += fs.readFileSync('data/mars.txt').toString()
+#      content += fs.readFileSync('data/mars.txt').toString()
 #      content += fs.readFileSync('data/referat.txt').toString()
-#      content += 'Чим учить вірші, Тичини, краще з’їсти кирпичини.'
 
 #      content = bose.stripTags content
       words = tokenize.tokenizeByRegexp content
