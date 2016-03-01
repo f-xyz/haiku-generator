@@ -1,0 +1,87 @@
+Thank you :)
+This message has been removed.
+This message has been removed.
+(sun)
+:)
+:D
+If no objection I should update and reboot awsvwrprt01 (52.6.56.146)
+Hi Vladimir!
+What is the estimated time to complete?
+Goog moning, Victoria,
+All complete with ad-ui-reporting.maxymiser.com (52.6.56.146)
+Now, if no objection, I'll update and reboot  adui-proxy.maxymiser.com (54.173.143.10)
+Near ten minutes downtime
+Which components are affected?
+Big Bang / Web Proxy
+No objection?
+seems so)
+Update complete adui-proxy.maxymiser.com (54.173.143.10)
+next server to reboot and update: wsaduivwapp10 (52.4.123.149)
+affected  components B-Beavers / Reporting Configuration Service
+Downtime - 10 min
+Any objection?
+Ok, update started
+Please, update Admin UI with latest build
+
+
+<<< update: wsaduivwapp10 (52.4.123.149)Update completed
+
+
+<<< Please, update Admin UI with latets buildstarted...
+done
+Hi, looks like ad-ui is down - Oops page is displayed when try to log in
+can someone look at this, please?
+mmvcb not reply on ping (
+thanks to oracle firewall rules :)
+sent email to Chris Moor and asked him to unblock for LDN
+or it's died from Dnipro?
+its not reply on rdp tcp/mssql from vcb-db1 too
+strange
+I logged in
+I reset it
+ah, OK :)
+Guys, ad-ui is still down(
+This message has been removed.
+we need make some tests on this bug, please wait
+Hi, looks like ad-ui is down - Oops page is displayed when try to log in
+can someone look at this, please?please try now
+it's OK now, thanks!
+Hi All
+need to check SSL cert issue on env02-ui-01
+have to reboot it several times
+hope, everyone is OK with this?
+('cause I will reboot it anyway, but it would be better if everyone is OK before rather than after :)
+5-4-3-2-1
+shot
+finished test
+all is OK
+Hi Guys! Currently RDC 54.152.216.22 isn't available .Do you know what is the problem?
+
+
+<<< RDCRDP ?
+Remote desktop
+I suspernd session 1 user 
+try now
+its nonterminal server - 2 rdp sessions on one time avaible
+the same
+I'll try to reboot
+If no objection, I'll update&reboot LDNRNDVWAPP10 (10.111.28.13) in 5 minutes.
+Affected: Reporting configuration server (WAP) (track C
+LDNRNDVWAPP10 (10.111.28.13) update complete
+Please, update Admin UI with latest build  170
+Hi Guys,
+Please update RepApp with biuld#211
+Morning Guys!
+started...
+completed
+thank you!
+Hi Guys!
+especially who are testing new LDN SQL servers
+LDNPWSQL12-18
+Currently I'm upgrading Cisco IOS for switches 
+https://jira.maxymiser.com/browse/IT-11773
+https://jira.maxymiser.com/browse/IT-10974
+It means connection will be lost to servers for some time
+Thanks,
+Evgeniy
+https://jira.maxymiser.com/browse/IT-10974

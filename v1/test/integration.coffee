@@ -22,7 +22,8 @@ describe 'haiku tests', ->
   it 'asd', ->
       content = ''
 #      content += fs.readFileSync('data/fox.txt').toString()
-      content += fs.readFileSync('data/haiku.txt').toString()
+#      content += fs.readFileSync('data/haiku.txt').toString()
+      content += fs.readFileSync('data/qa.txt').toString()
 #      content += fs.readFileSync(__dirname + '/../tokenizer.coffee').toString()
 #      content += fs.readFileSync('data/kobzar.txt').toString()
 #      content += fs.readFileSync('data/mars.txt').toString()
